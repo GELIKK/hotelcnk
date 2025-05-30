@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>კატეგორიები</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .category-buttons button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #ccc;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .category-buttons button.active {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    .items-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .item {
+      background-color: white;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="category-buttons">
+    <button data-category="all" class="active">ყველა</button>
+    <button data-category="drink">დასალევი</button>
+    <button data-category="fried">შემწვარი</button>
+    <button data-category="fastfood">ფასთფუდი</button>
+  </div>
+
+  <div class="items-container">
+    <div class="item" data-category="drink">კოლა</div>
+    <div class="item" data-category="drink">წყალი</div>
+    <div class="item" data-category="fried">ქათმის ფრთები</div>
+    <div class="item" data-category="fried">კარტოფილი ფრი</div>
+    <div class="item" data-category="fastfood">ჰამბურგერი</div>
+    <div class="item" data-category="fastfood">ჩიზბურგერი</div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.category-buttons button');
+    const items = document.querySelectorAll('.items-container .item');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+
+        // remove active class from all buttons
+        buttons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        items.forEach(item => {
+          if (category === 'all' || item.dataset.category === category) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
